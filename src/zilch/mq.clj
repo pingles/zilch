@@ -49,7 +49,7 @@
      (doto socket
        (.unsubscribe (.getBytes topic))))
   ([#^ZMQ$Socket socket]
-     (subscribe socket "")))
+     (unsubscribe socket "")))
 
 (defmulti send (fn [#^ZMQ$Socket socket message & flags]
                  (class message)))

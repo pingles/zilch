@@ -1,0 +1,33 @@
+# -*- mode: org; -*-
+#+TITLE: Zilch: Clojure ZeroMQ Library
+#+STARTUP: overview hidestars odd
+
+* Wha?
+  Clojure zeromq code for messin' 'round
+* Building
+*** Mac Pkg-Config Tricks for ZeroMQ & JZMQ
+    brew install pkg-config
+    sudo ln -sf /usr/local/share/aclocal/pkg.m4 /usr/share/aclocal/
+*** ZeroMQ
+    git clone http://github.com/zeromq/zeromq2.git
+    cd zeromq2
+    git checkout -b stable v2.0.9
+    autoconf
+    ./configure
+    make
+    make install
+*** JZMQ
+    git clone http://github.com/zeromq/jzmq.git
+    cd jzmq
+    autoconf
+    ./configure
+    make
+    make install
+    mvn install:install-file \
+    -Dfile=/usr/local/share/java/zmq.jar \
+    -DgroupId=org.zeromq \
+    -DartifactId=zmq \
+    -Dversion=2.0.9 \
+    -Dpackaging=jar
+*** Package and test Zilch
+    lein test

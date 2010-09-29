@@ -6,28 +6,36 @@
   Clojure zeromq code for messin' 'round
 * Building
 *** Mac Pkg-Config Tricks for ZeroMQ & JZMQ
-    - brew install pkg-config
-    - sudo ln -sf /usr/local/share/aclocal/pkg.m4 /usr/share/aclocal/
+#+BEGIN_SRC: bash
+    brew install pkg-config
+    sudo ln -sf /usr/local/share/aclocal/pkg.m4 /usr/share/aclocal/
+#+END_SRC
 *** ZeroMQ
-    - git clone http://github.com/zeromq/zeromq2.git
-    - cd zeromq2
-    - git checkout -b stable v2.0.9
-    - autoconf
-    - ./configure
-    - make
-    - make install
+#+BEGIN_SRC: bash
+    git clone http://github.com/zeromq/zeromq2.git
+    cd zeromq2
+    git checkout -b stable v2.0.9
+    autoconf
+    ./configure
+    make
+    make install
+#+END_SRC
 *** JZMQ
-    - git clone http://github.com/zeromq/jzmq.git
-    - cd jzmq
-    - autoconf
-    - ./configure
-    - make
-    - make install
-    - mvn install:install-file \
-      -Dfile=/usr/local/share/java/zmq.jar \
-      -DgroupId=org.zeromq \
-      -DartifactId=zmq \
-      -Dversion=2.0.9 \
-      -Dpackaging=jar
+#+BEGIN_SRC: bash
+    git clone http://github.com/zeromq/jzmq.git
+    cd jzmq
+    autoconf
+    ./configure
+    make
+    make install
+    mvn install:install-file \
+    -Dfile=/usr/local/share/java/zmq.jar \
+    -DgroupId=org.zeromq \
+    -DartifactId=zmq \
+    -Dversion=2.0.9 \
+    -Dpackaging=jar
+#+END_SRC
 *** Package and test Zilch
-    - lein test
+#+BEGIN_SRC: bash
+    lein test
+#+END_SRC

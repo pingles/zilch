@@ -11,14 +11,19 @@
     sudo ln -sf /usr/local/share/aclocal/pkg.m4 /usr/share/aclocal/
 #+END_SRC
 *** ZeroMQ
+***** Either
 #+BEGIN_SRC: bash
-    git clone http://github.com/zeromq/zeromq2.git
-    cd zeromq2
-    git checkout -b stable v2.0.9
-    autoconf
-    ./configure
-    make
-    make install
+      brew install zeromq
+#+END_SRC
+***** Or
+#+BEGIN_SRC: bash
+      git clone http://github.com/zeromq/zeromq2.git
+      cd zeromq2
+      git checkout -b stable v2.0.9
+      autoconf
+      ./configure
+      make
+      make install
 #+END_SRC
 *** JZMQ
 #+BEGIN_SRC: bash

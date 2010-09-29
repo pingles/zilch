@@ -28,12 +28,7 @@
     ./configure
     make
     make install
-    mvn install:install-file \
-    -Dfile=/usr/local/share/java/zmq.jar \
-    -DgroupId=org.zeromq \
-    -DartifactId=zmq \
-    -Dversion=2.0.9 \
-    -Dpackaging=jar
+    mvn install:install-file -Dfile=/usr/local/share/java/zmq.jar -DgroupId=org.zeromq -DartifactId=zmq -Dversion=2.0.9 -Dpackaging=jar
 #+END_SRC
 *** Package and test Zilch
 #+BEGIN_SRC: bash

@@ -30,7 +30,9 @@
     make install
     mvn install:install-file -Dfile=/usr/local/share/java/zmq.jar -DgroupId=org.zeromq -DartifactId=zmq -Dversion=2.0.9 -Dpackaging=jar
 #+END_SRC
-*** Package and test Zilch
+*** Test
 #+BEGIN_SRC: bash
     lein test
 #+END_SRC
+*** Use
+    See test/ code for examples

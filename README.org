@@ -1,43 +1,56 @@
-# -*- mode: org; -*-
-#+TITLE: Zilch: Clojure ZeroMQ Library
-#+STARTUP: overview hidestars odd
+#+TITLE:Zilch: Clojure ZeroMQ Library
 
 * Wha?
   Clojure zeromq code for messin' 'round
 * Building
-*** Mac Pkg-Config Tricks for ZeroMQ & JZMQ
-#+BEGIN_SRC: bash
-    brew install pkg-config
-    sudo ln -sf /usr/local/share/aclocal/pkg.m4 /usr/share/aclocal/
-#+END_SRC
-*** ZeroMQ
-***** Either
-#+BEGIN_SRC: bash
-      brew install zeromq
-#+END_SRC
-***** Or
-#+BEGIN_SRC: bash
-      git clone http://github.com/zeromq/zeromq2.git
-      cd zeromq2
-      git checkout -b stable v2.0.9
-      autoconf
-      ./configure
-      make
-      make install
-#+END_SRC
-*** JZMQ
-#+BEGIN_SRC: bash
-    git clone http://github.com/zeromq/jzmq.git
-    cd jzmq
-    autoconf
-    ./configure
-    make
-    make install
-    mvn install:install-file -Dfile=/usr/local/share/java/zmq.jar -DgroupId=org.zeromq -DartifactId=zmq -Dversion=2.0.9 -Dpackaging=jar
-#+END_SRC
+*** Mac
+***** ZeroMQ
+******* Install [[http://developer.apple.com/tools/xcode/][XCode]]
+******* Install [[http://developer.apple.com/java/download/][Java Developer Package]]
+        (needed for JNI)
+******* Install [[https://github.com/mxcl/homebrew][Homebrew]]
+******* Hack pkg-config for mac
+        #+BEGIN_SRC: sh
+brew install pkg-config
+sudo ln -sf /usr/local/share/aclocal/pkg.m4 /usr/share/aclocal/
+        #+END_SRC
+******* Install ZeroMQ
+        #+BEGIN_SRC: sh
+git clone http://github.com/zeromq/zeromq2.git
+cd zeromq2
+./autogen.sh
+FLAGS="-arch i386" CFLAGS="$CFLAGS ${FLAGS}" CXXFLAGS="$CXXFLAGS ${FLAGS}" \
+    ./configure --disable-dependency-tracking
+make
+mv src/.libs/libzmq.1.dylib libzmq.32.dylib
+make clean
+FLAGS="-arch x86_64" CFLAGS="$CFLAGS ${FLAGS}" CXXFLAGS="$CXXFLAGS ${FLAGS}" \
+    ./configure --disable-dependency-tracking
+make
+mv src/.libs/libzmq.1.dylib libzmq.64.dylib
+lipo -create libzmq.32.dylib libzmq.64.dylib \
+    -output src/.libs/libzmq.1.dylib
+make install
+        #+END_SRC
+******* Install JZMQ
+        #+BEGIN_SRC: sh
+git clone http://github.com/zeromq/jzmq.git
+cd jzmq
+./autogen.sh
+JAVA_HOME=$(/usr/libexec/java_home) \
+    ./configure --disable-dependency-tracking
+make && make install
+mvn deploy:deploy-file \
+    -Durl=file:///${HOME}/.m2/repository
+    -Dfile=/usr/local/share/java/zmq.jar \
+    -DgroupId=org.zeromq \
+    -DartifactId=zmq \
+    -Dversion=2.0-SNAPSHOT \
+    -Dpackaging=jar
+        #+END_SRC
 *** Test
-#+BEGIN_SRC: bash
-    lein test
-#+END_SRC
+    #+BEGIN_SRC: sh
+lein test
+    #+END_SRC
 *** Use
     See test/ code for examples

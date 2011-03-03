@@ -28,8 +28,7 @@ FLAGS="-arch x86_64" CFLAGS="$CFLAGS ${FLAGS}" CXXFLAGS="$CXXFLAGS ${FLAGS}" \
     ./configure --disable-dependency-tracking
 make
 mv src/.libs/libzmq.1.dylib libzmq.64.dylib
-lipo -create libzmq.32.dylib libzmq.64.dylib \
-    -output src/.libs/libzmq.1.dylib
+lipo -create libzmq.32.dylib libzmq.64.dylib -output src/.libs/libzmq.1.dylib
 make install
         #+END_SRC
 ******* Install JZMQ
@@ -41,7 +40,7 @@ JAVA_HOME=$(/usr/libexec/java_home) \
     ./configure --disable-dependency-tracking
 make && make install
 mvn deploy:deploy-file \
-    -Durl=file:///${HOME}/.m2/repository
+    -Durl=file:///${HOME}/.m2/repository \
     -Dfile=/usr/local/share/java/zmq.jar \
     -DgroupId=org.zeromq \
     -DartifactId=zmq \
